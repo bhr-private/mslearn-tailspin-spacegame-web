@@ -6,8 +6,7 @@
 trigger:
 - main
 
-pool:
-  vmImage: 'windows-latest'
+pool: vs23822_AgentPool
 
 variables:
   solution: '**/*.sln'
