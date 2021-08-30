@@ -7,8 +7,6 @@ trigger:
 - '*'
 
 pool: vs23822_AgentPool
-  demands:
-  - npm
 
 variables:
   buildConfiguration: 'Release'
