@@ -68,7 +68,9 @@ stages:
   jobs:
   - deployment: AzureAppDeploy_dev
     pool: vs23822_AgentPool
-    environment: dev
+    environment: 
+      name: vs23822_dev
+      tags: vs23822,dev
     variables:
     - group: Release
     strategy:
