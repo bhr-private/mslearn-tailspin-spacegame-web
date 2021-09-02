@@ -113,9 +113,4 @@ stages:
             inputs:
               pathToPublish: '$(Build.ArtifactStagingDirectory)'
               artifactName: CopyFiles
-          - task: PublishBuildArtifacts@2
-            inputs:
-            pathToPublish: '$(Build.ArtifactStagingDirectory)'
-            artifactName: SpaceGame_vs23822_dev
-            displayName: 'vs23822 App Service Deploy: website'
-          - script: echo my first deployment to vs23822
+
