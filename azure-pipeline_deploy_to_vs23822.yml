@@ -62,7 +62,7 @@ stages:
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: drop
 
-- stage: 'Deploy_Azure'
+- stage: 'Deploy_Azure_dev'
   displayName: 'Deploy the web application to Azure'
   dependsOn: Build
   jobs:
@@ -105,7 +105,7 @@ stages:
             inputs:
               buildtype: current
               buildVersionToDownload: latest
-              artifact: drop
+              artifactName: DownloadBuildArtifacts
               downloadPath: '$(System.ArtifactsDirectory)' 
 
           - task: CopyFiles@2
