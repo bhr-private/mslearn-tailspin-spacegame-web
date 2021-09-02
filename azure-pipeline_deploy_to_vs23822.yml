@@ -102,9 +102,9 @@ stages:
             artifact: drop          
           - task: DownloadBuildArtifacts@0
             inputs:
-            appName: '$(WebAppName)'
-            package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'            
-            downloadPath: '$(System.ArtifactsDirectory)'
+              appName: '$(WebAppName)'
+              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'            
+              downloadPath: '$(System.ArtifactsDirectory)'
           - task: CopyFiles@2
             inputs:
               sourceFolder: '$(Build.SourcesDirectory)'
