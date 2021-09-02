@@ -70,7 +70,6 @@ stages:
     pool: vs23822_AgentPool
     environment: 
       name: vs23822_dev
-      tags: vs23822,dev
     variables:
     - group: Release
     strategy:
