@@ -103,7 +103,7 @@ stages:
 
           - task: PublishPipelineArtifact@1
             inputs:
-              targetPath: $(System.DefaultWorkingDirectory)/bin/WebApp
+              targetPath: /home/bernhard/azure.devops/stages/dev/bin/WebApp
               artifactName: WebApp
 
 #          - task: DownloadBuildArtifacts@0
