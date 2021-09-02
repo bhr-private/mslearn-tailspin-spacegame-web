@@ -100,6 +100,9 @@ stages:
           steps:
           - download: current
             artifact: drop
-          - task: Bash@3
-            displayName: 'Azure App Service Deploy: website'
+          - task: PublishBuildArtifacts@1
+            inputs:
+            pathToPublish: '$(Build.ArtifactStagingDirectory)'
+            artifactName: SpaceGame_vs23822_dev
+            displayName: 'vs23822 App Service Deploy: website'
           - script: echo my first deployment to vs23822
