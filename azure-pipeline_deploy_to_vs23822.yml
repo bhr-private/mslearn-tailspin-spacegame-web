@@ -105,7 +105,7 @@ stages:
             inputs:
               buildtype: current
               buildVersionToDownload: latest
-              artifactName: DownloadBuildArtifacts
+              artifact: drop
               downloadPath: '$(System.ArtifactsDirectory)' 
 
           - task: CopyFiles@2
