@@ -101,12 +101,17 @@ stages:
           - download: current
             artifact: drop          
 
-          - task: DownloadBuildArtifacts@0
+          - task: PublishPipelineArtifact@1
             inputs:
-              buildtype: current
-              buildVersionToDownload: latest
-              artifactName: DownloadBuildArtifacts
-              downloadPath: '$(System.ArtifactsDirectory)' 
+              targetPath: $(System.DefaultWorkingDirectory)/bin/WebApp
+              artifactName: WebApp
+
+#          - task: DownloadBuildArtifacts@0
+#            inputs:
+#              buildtype: current
+#              buildVersionToDownload: latest
+#              artifactName: DownloadBuildArtifacts
+#              downloadPath: '$(System.ArtifactsDirectory)' 
 
           - task: CopyFiles@2
             inputs:
