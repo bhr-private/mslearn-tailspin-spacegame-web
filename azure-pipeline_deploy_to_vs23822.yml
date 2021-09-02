@@ -93,8 +93,8 @@ stages:
         name: VMenv
         resourceType: VirtualMachine
         tags: vs23822
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - script: echo my first deployment to vs23822
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo my first deployment to vs23822
