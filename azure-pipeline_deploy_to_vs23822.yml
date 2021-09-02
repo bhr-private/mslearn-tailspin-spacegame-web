@@ -81,6 +81,7 @@ stages:
             displayName: 'Azure App Service Deploy: website'
             inputs:
               azureSubscription: 'Resource Manager - Tailspin - Space Game'
+              #Library:Variable Group::Release:::WebAppName=tailspin-space-game-web-deploy
               appName: '$(WebAppName)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
 
@@ -116,7 +117,8 @@ stages:
           - task: DownloadPipelineArtifact@1
             inputs:
               source: 'current'
-              path: /home/bernhard
+              appName: '$(WebAppName)'
+              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
 
 #          - task: CopyFiles@2
 #            inputs:
