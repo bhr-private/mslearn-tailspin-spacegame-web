@@ -90,7 +90,7 @@ stages:
   - deployment: VMDeploy
     pool: vs23822_AgentPool
     environment:
-        name: VMenv
+        name: vs23822
         resourceType: VirtualMachine
         tags: vs23822
     strategy:
@@ -98,4 +98,3 @@ stages:
         deploy:
           steps:
           - script: echo my first deployment to vs23822
-          
