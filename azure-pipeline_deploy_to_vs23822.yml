@@ -101,23 +101,28 @@ stages:
 #          - download: current
 #            artifact: drop          
 
-          - task: PublishPipelineArtifact@1
-            inputs:
-              targetPath: /home/bernhard/azure.devops/stages/dev
-              artifactName: WebApp
+#          - task: PublishPipelineArtifact@1
+#            inputs:
+#              targetPath: /home/bernhard/azure.devops/stages/dev
+#              artifactName: WebApp
 
-#          - task: DownloadBuildArtifacts@0
+#          - task: DownloadBuildArtifacts@1
 #            inputs:
 #              buildtype: current
 #              buildVersionToDownload: latest
 #              artifactName: DownloadBuildArtifacts
 #              downloadPath: '$(System.ArtifactsDirectory)' 
 
-          - task: CopyFiles@2
+          - task: DownloadPipelineArtifact@1
             inputs:
-              sourceFolder: '$(Build.SourcesDirectory)'
-              contents: '**/$(BuildConfiguration)/**/?(*.exe|*.dll|*.pdb)'
-              targetFolder: '$(Build.ArtifactStagingDirectory)'
+              source: 'current'
+              path: /home/bernhard
+
+#          - task: CopyFiles@2
+#            inputs:
+#              sourceFolder: '$(Build.SourcesDirectory)'
+#              contents: '**/$(BuildConfiguration)/**/?(*.exe|*.dll|*.pdb)'
+#              targetFolder: '$(Build.ArtifactStagingDirectory)'
 
           - task: PublishBuildArtifacts@1
             inputs:
