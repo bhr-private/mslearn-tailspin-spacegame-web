@@ -83,6 +83,7 @@ stages:
               azureSubscription: 'Resource Manager - Tailspin - Space Game'
               appName: '$(WebAppName)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+
 - stage: 'Deploy_vs23822'
   displayName: 'Deploy the web application to vs23822'
   dependsOn: Build
@@ -90,11 +91,15 @@ stages:
   - deployment: VMDeploy
     pool: vs23822_AgentPool
     environment:
-        name: vs23822
+        name: vs23822_dev
         resourceType: VirtualMachine
-        tags: vs23822
+        tags: vs23822,dev
     strategy:
       runOnce:
         deploy:
           steps:
+          - download: current
+            artifact: drop
+          - task: Bash@3
+            displayName: 'Azure App Service Deploy: website'
           - script: echo my first deployment to vs23822
