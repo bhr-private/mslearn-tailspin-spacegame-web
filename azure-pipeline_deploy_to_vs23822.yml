@@ -11,6 +11,7 @@ stages:
   - job: 'Build'
     displayName: 'Build job'
     pool: vs23822_AgentPool
+    environment: vs23822_dev
 
     variables:
       wwwrootDir: 'Tailspin.SpaceGame.Web/wwwroot'
@@ -70,6 +71,7 @@ stages:
     pool: vs23822_AgentPool
     environment: vs23822_dev
     variables:
+    
     - group: Release
     strategy:
       runOnce:
