@@ -84,11 +84,11 @@ stages:
               appName: '$(WebAppName)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
 
-- stage: 'Deploy_vs23822'
+- stage: 'Deploy_vs23822_dev'
   displayName: 'Deploy the web application to vs23822'
   dependsOn: Build
   jobs:
-  - deployment: VMDeploy
+  - deployment: VMDeploy_dev
     pool: vs23822_AgentPool
     environment:
         name: vs23822_dev
@@ -100,16 +100,19 @@ stages:
           steps:
           - download: current
             artifact: drop          
+
           - task: DownloadBuildArtifacts@0
             inputs:
-              appName: '$(WebAppName)'
-              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'            
-              downloadPath: '$(System.ArtifactsDirectory)'
+              buildtype: current
+              buildVersionToDownload: latest
+              downloadPath: '$(System.ArtifactsDirectory)' 
+
           - task: CopyFiles@2
             inputs:
               sourceFolder: '$(Build.SourcesDirectory)'
               contents: '**/$(BuildConfiguration)/**/?(*.exe|*.dll|*.pdb)'
               targetFolder: '$(Build.ArtifactStagingDirectory)'
+
           - task: PublishBuildArtifacts@1
             inputs:
               pathToPublish: '$(Build.ArtifactStagingDirectory)'
