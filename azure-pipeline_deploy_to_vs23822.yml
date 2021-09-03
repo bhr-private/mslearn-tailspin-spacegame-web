@@ -88,6 +88,13 @@ stages:
     pool: vs23822_AgentPool
     environment: vs23822_environment_dev
     variables:
-      - task: ShellScript@1
-        scriptPath: test.sh
+    - group: Release
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop
+          - task: ShellScript@1
+            scriptPath: test.sh
 
