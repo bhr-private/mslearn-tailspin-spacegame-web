@@ -66,34 +66,36 @@ stages:
   displayName: 'deploy to Azure dev environment'
   dependsOn: Build
   jobs:
-  - deployment: 'azure'
-    pool: vs23822_AgentPool
-    environment: vs23822_environment_dev
-    variables:
-    - group: Release
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - download: current
-            artifact: drop
-          - task: AzureWebApp@1
-            displayName: 'Azure App Service Deploy: website'
-            inputs:
-              azureSubscription: 'Resource Manager - Tailspin - Space Game'
-              appName: '$(WebAppNameDev)'
-              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+  
+  # - deployment: 'azure'
+  #   pool: vs23822_AgentPool
+  #   environment: vs23822_environment_dev
+  #   variables:
+  #   - group: Release
+  #   strategy:
+  #     runOnce:
+  #       deploy:
+  #         steps:
+  #         - download: current
+  #           artifact: drop
+  #         - task: AzureWebApp@1
+  #           displayName: 'Azure App Service Deploy: website'
+  #           inputs:
+  #             azureSubscription: 'Resource Manager - Tailspin - Space Game'
+  #             appName: '$(WebAppNameDev)'
+  #             package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
     
-  - deployment: 'vs23822'
-    pool: vs23822_AgentPool
-    environment: vs23822_environment_dev
-    variables:
-    - group: Release
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: ShellScript@2
-            inputs:
-              scriptPath: test.sh
+    -job:
+      - deployment: 'vs23822'
+        pool: vs23822_AgentPool
+        environment: vs23822_environment_dev
+        variables:
+        - group: Release
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+              - task: ShellScript@2
+                inputs:
+                  scriptPath: test.sh
 
