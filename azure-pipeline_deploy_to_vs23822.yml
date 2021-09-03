@@ -95,7 +95,7 @@ stages:
           steps:
           - download: current
             artifact: drop
-          - task: ShellScript@1
+          - task: ShellScript@2
             inputs:
               scriptPath: test.sh
 
