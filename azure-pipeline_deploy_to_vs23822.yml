@@ -93,8 +93,6 @@ stages:
       runOnce:
         deploy:
           steps:
-          - download: current
-            artifact: drop
           - task: ShellScript@2
             inputs:
               scriptPath: test.sh
