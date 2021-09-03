@@ -84,4 +84,18 @@ stages:
               appName: '$(WebAppNameDev)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
     
+  - deployment: 'vs23822'
+    pool: vs23822_AgentPool
+    environment: vs23822_environment_dev
+    variables:
+    - group: Release
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop
+          - task: ShellScript@2
+            inputs:
+              scriptPath: test.sh
 
