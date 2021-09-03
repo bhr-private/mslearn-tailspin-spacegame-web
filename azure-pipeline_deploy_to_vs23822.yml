@@ -78,7 +78,6 @@ stages:
                 scriptPath: test.sh
             - script: echo my first deployment
     - job: Deploy_Job
-      displayName: Build Maven Project
       steps:
       - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
