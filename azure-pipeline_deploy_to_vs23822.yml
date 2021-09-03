@@ -63,14 +63,12 @@ stages:
       artifact: drop
 
 - stage: 'dev'
-  displayName: 'deploy to dev environment'
+  displayName: 'deploy to Azure dev environment'
   dependsOn: Build
   jobs:
-  - deployment: Deploy
+  - deployment: Deploy to Azure
     pool: vs23822_AgentPool
     environment: vs23822_environment_dev
-
-
     variables:
     - group: Release
     strategy:
@@ -85,3 +83,18 @@ stages:
               azureSubscription: 'Resource Manager - Tailspin - Space Game'
               appName: '$(WebAppNameDev)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+    
+  - deployment: Deploy to vs23822
+  pool: vs23822_AgentPool
+  environment: vs23822_environment_dev
+  variables:
+  - group: Release
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - download: current
+          artifact: drop
+        - task: ShellScript@1
+          scriptPath: test.sh
+
