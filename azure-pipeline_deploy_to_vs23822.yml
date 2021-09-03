@@ -11,7 +11,6 @@ stages:
   - job: 'Build'
     displayName: 'Build job'
     pool: vs23822_AgentPool
-    environment: vs23822_dev
 
     variables:
       wwwrootDir: 'Tailspin.SpaceGame.Web/wwwroot'
@@ -69,7 +68,7 @@ stages:
   jobs:
   - deployment: AzureAppDeploy_dev
     pool: vs23822_AgentPool
-    environment: vs23822_dev
+    environment: vs23822_environment_dev
     variables:
     
     - group: Release
@@ -94,9 +93,9 @@ stages:
   - deployment: VMDeploy_dev
     pool: vs23822_AgentPool
     environment:
-        name: vs23822_dev
+        name: vs23822_environment_dev
         resourceType: VirtualMachine
-        tags: vs23822,dev
+        tags: vs23822_environment_dev
     strategy:
       runOnce:
         deploy:
