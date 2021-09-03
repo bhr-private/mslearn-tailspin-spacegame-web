@@ -62,28 +62,26 @@ stages:
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: drop
 
-- stage: 'Deploy'
-  displayName: 'Deploy the web application'
+- stage: 'dev'
+  displayName: 'deploy to dev environment'
   dependsOn: Build
   jobs:
-  - job: 'AzureAppDeploy_dev'
-    displayName: 'deploy artifact'
+  - deployment: Deploy
     pool: vs23822_AgentPool
+    environment: vs23822_environment_dev
+
 
     variables:
-    
-      - group: Release
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - download: current
-              artifact: drop
-            - task: AzureWebApp@1
-              displayName: 'Azure App Service Deploy: website'
-              inputs:
-                azureSubscription: 'Resource Manager - Tailspin - Space Game'
-                #Library:Variable Group::Release:::WebAppName=tailspin-space-game-web-deploy
-                appName: '$(WebAppName)'
-                package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
-                
+    - group: Release
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop
+          - task: AzureWebApp@1
+            displayName: 'Azure App Service Deploy: website'
+            inputs:
+              azureSubscription: 'Resource Manager - Tailspin - Space Game'
+              appName: '$(WebAppNameDev)'
+              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
