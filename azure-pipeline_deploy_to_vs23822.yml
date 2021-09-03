@@ -62,11 +62,21 @@ stages:
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: drop
 
-- stage: 'dev'
-  displayName: 'deploy to Azure dev environment'
+- stage: 'deploy_to_dev'
   dependsOn: Build
   jobs:
-  
+    - deployment: 'deploy_to_dev_vs23822'
+      displayName: 'deploy to vs23822 dev environment'
+      pool: vs23822_AgentPool
+      environment: vs23822_environment_dev
+      variables:
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - script: echo my first deployment
+
+
   # - deployment: 'azure'
   #   pool: vs23822_AgentPool
   #   environment: vs23822_environment_dev
@@ -85,18 +95,6 @@ stages:
   #             appName: '$(WebAppNameDev)'
   #             package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
     
-    -job:
-      - deployment: 'vs23822'
-        pool: vs23822_AgentPool
-        environment: vs23822_environment_dev
-        variables:
-        - group: Release
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-              - task: ShellScript@2
-                inputs:
-                  scriptPath: test.sh
+
 
   
