@@ -88,6 +88,6 @@ stages:
     pool: vs23822_AgentPool
     environment: vs23822_environment_dev
     variables:
-    - task: ShellScript@1
-      scriptPath: test.sh
+      - task: ShellScript@1
+        scriptPath: test.sh
 
