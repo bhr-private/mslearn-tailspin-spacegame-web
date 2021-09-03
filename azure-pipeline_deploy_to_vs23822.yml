@@ -62,13 +62,14 @@ stages:
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: drop
 
-- stage: 'Deploy_Azure_dev'
-  displayName: 'Deploy the web application to Azure'
+- stage: 'Deploy'
+  displayName: 'Deploy the web application'
   dependsOn: Build
   jobs:
-  - deployment: AzureAppDeploy_dev
+  - job: 'AzureAppDeploy_dev'
+    displayName: 'deploy artifact'
     pool: vs23822_AgentPool
-    environment: vs23822_environment_dev
+
     variables:
     
     - group: Release
@@ -85,50 +86,4 @@ stages:
               #Library:Variable Group::Release:::WebAppName=tailspin-space-game-web-deploy
               appName: '$(WebAppName)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
-
-- stage: 'Deploy_vs23822_dev'
-  displayName: 'Deploy the web application to vs23822'
-  dependsOn: Build
-  jobs:
-  - deployment: VMDeploy_dev
-    pool: vs23822_AgentPool
-    environment:
-        name: vs23822_environment_dev
-        resourceType: VirtualMachine
-        tags: vs23822_environment_dev
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-#          - download: current
-#            artifact: drop          
-
-#          - task: PublishPipelineArtifact@1
-#            inputs:
-#              targetPath: /home/bernhard/azure.devops/stages/dev
-#              artifactName: WebApp
-
-#          - task: DownloadBuildArtifacts@1
-#            inputs:
-#              buildtype: current
-#              buildVersionToDownload: latest
-#              artifactName: DownloadBuildArtifacts
-#              downloadPath: '$(System.ArtifactsDirectory)' 
-
-          - task: DownloadPipelineArtifact@1
-            inputs:
-              source: 'current'
-              appName: '$(WebAppName)'
-              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
-
-#          - task: CopyFiles@2
-#            inputs:
-#              sourceFolder: '$(Build.SourcesDirectory)'
-#              contents: '**/$(BuildConfiguration)/**/?(*.exe|*.dll|*.pdb)'
-#              targetFolder: '$(Build.ArtifactStagingDirectory)'
-
-          - task: PublishBuildArtifacts@1
-            inputs:
-              pathToPublish: '$(Build.ArtifactStagingDirectory)'
-              artifactName: CopyFiles
-
+              
