@@ -69,7 +69,6 @@ stages:
       displayName: 'deploy to vs23822 dev environment'
       pool: vs23822_AgentPool
       environment: vs23822_environment_dev
-      variables:
       strategy:
         runOnce:
           deploy:
