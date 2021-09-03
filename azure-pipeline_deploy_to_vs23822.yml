@@ -66,7 +66,7 @@ stages:
   displayName: 'deploy to Azure dev environment'
   dependsOn: Build
   jobs:
-  - deployment: Deploy to Azure
+  - deployment: 'Deploy to Azure'
     pool: vs23822_AgentPool
     environment: vs23822_environment_dev
     variables:
@@ -84,7 +84,7 @@ stages:
               appName: '$(WebAppNameDev)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
     
-  - deployment: Deploy to vs23822
+  - deployment: 'Deploy to vs23822'
     pool: vs23822_AgentPool
     environment: vs23822_environment_dev
     variables:
