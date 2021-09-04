@@ -77,7 +77,7 @@ stages:
               inputs:
                 scriptPath: test.sh
             - script: echo my first deployment
-    - job: Deploy_Job
+    - job: Copy_Job
       steps:
       - task: CopyFiles@2
         displayName: 'Copy Files to artifact staging directory'
