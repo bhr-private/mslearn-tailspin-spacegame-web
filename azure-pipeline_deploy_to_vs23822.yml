@@ -65,7 +65,7 @@ stages:
       artifact: drop
 
 - stage: 'DEV'
-  displayName: 'x'
+  displayName: 'Deploy_DEV'
   dependsOn: Build
   jobs: 
   - job: 'Deploy'
