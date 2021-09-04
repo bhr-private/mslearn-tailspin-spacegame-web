@@ -3,6 +3,8 @@ trigger:
 
 variables:
   buildConfiguration: 'Release'
+  buildversion: 1.0.0
+
 
 stages:
 - stage: 'Build'
@@ -64,29 +66,37 @@ stages:
 
 - stage: 'Deploy DEV'
   dependsOn: Build
-  jobs:
-    - deployment: 'Deploy_vs23822'
-      displayName: 'Deploy to vs23822 dev environment'
-      pool: vs23822_AgentPool
-      environment: vs23822_environment_dev
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - task: ShellScript@2
-              inputs:
-                scriptPath: test.sh
-            - script: echo my first deployment
-    - job: Copy_Job
-      steps:
-      - task: CopyFiles@2
-        displayName: 'Copy Files to artifact staging directory'
-        inputs:
-          SourceFolder: '$(System.DefaultWorkingDirectory)'
-          Contents: '**/target/*.?(war|jar)'
-          TargetFolder: $(Build.ArtifactStagingDirectory)
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(build.artifactStagingDirectory)'
+      ArtifactName: '$(buildversion)'
+      publishLocation: '/home/bernhard/azure.devops/run/dev
 
 
+  # jobs:
+  #   - deployment: 'Deploy_vs23822'
+  #     displayName: 'Deploy to vs23822 dev environment'
+  #     pool: vs23822_AgentPool
+  #     environment: vs23822_environment_dev
+  #     strategy:
+  #       runOnce:
+  #         deploy:
+  #           steps:
+  #           - task: ShellScript@2
+  #             inputs:
+  #               scriptPath: test.sh
+  #           - script: echo my first deployment
+  #   - job: Copy_vs23822
+  #     steps:
+  #     - task: CopyFiles@2
+  #       displayName: 'Copy Files to artifact staging directory'
+  #       inputs:
+  #         SourceFolder: '$(System.DefaultWorkingDirectory)'
+  #         Contents: '**/target/*.?(war|jar)'
+  #         TargetFolder: $(Build.ArtifactStagingDirectory)
+
+
+'
 
   # - deployment: 'azure'
   #   pool: vs23822_AgentPool
