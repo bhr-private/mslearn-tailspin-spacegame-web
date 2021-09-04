@@ -69,9 +69,11 @@ stages:
   dependsOn: Build
   jobs: 
   - job: 'Deploy'
-    displayName: 'Build'
+    displayName: 'Deploy'
     pool: vs23822_AgentPool
     steps:
+    - download: current
+      patterns: '**/*.zip'
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(build.artifactStagingDirectory)'
