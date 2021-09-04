@@ -62,10 +62,10 @@ stages:
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: drop
 
-- stage: 'Deploy'
+- stage: 'Deploy DEV'
   dependsOn: Build
   jobs:
-    - deployment: 'deploy_to_dev_vs23822'
+    - deployment: 'Deploy_vs23822'
       displayName: 'Deploy to vs23822 dev environment'
       pool: vs23822_AgentPool
       environment: vs23822_environment_dev
