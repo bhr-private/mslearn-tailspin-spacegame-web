@@ -66,11 +66,13 @@ stages:
 
 - stage: 'Deploy_DEV'
   dependsOn: Build
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(build.artifactStagingDirectory)'
-      ArtifactName: '$(buildversion)'
-      publishLocation: '/home/bernhard/azure.devops/run/dev
+    jobs: 
+      steps:
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(build.artifactStagingDirectory)'
+          ArtifactName: '$(buildversion)'
+          publishLocation: '/home/bernhard/azure.devops/run/dev
 
 
   # jobs:
