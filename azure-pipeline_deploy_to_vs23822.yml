@@ -64,7 +64,7 @@ stages:
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: drop
 
-- stage: 'Deploy DEV'
+- stage: 'Deploy_DEV'
   dependsOn: Build
   - task: PublishBuildArtifacts@1
     inputs:
