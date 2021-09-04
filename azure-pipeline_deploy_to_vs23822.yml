@@ -76,4 +76,4 @@ stages:
       inputs:
         PathtoPublish: '$(build.artifactStagingDirectory)'
         ArtifactName: '$(buildversion)'
-        publishLocation: '/home/bernhard/azure.devops/run/dev
+        publishLocation: '/home/bernhard/azure.devops/run/dev'
